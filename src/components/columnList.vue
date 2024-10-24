@@ -35,9 +35,9 @@ const showMsg = computed(() => {
   return props.list?.forEach(item => {
     if (!item.avatar) {
       //加载静态文件
-      item.avatar = new URL('../assets/obb.png', import.meta.url).href
+      // item.avatar = new URL('../assets/obb.png', import.meta.url).href
       //加载线上文件
-      // item.avatar = '	https://www.bootcss.com/assets/img/item1.png'
+      item.avatar = '	https://www.bootcss.com/assets/img/item1.png'
     }
   })
 })
