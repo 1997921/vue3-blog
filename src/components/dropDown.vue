@@ -1,10 +1,6 @@
 <template>
   <div class="dropdown" ref="dropDownRef">
-    <a
-      href="#"
-      class="btn btn-outline-light me-4 dropdown-toggle"
-      @click="Opendown()"
-    >
+    <a class="btn btn-outline-light me-4 dropdown-toggle" @click="Opendown()">
       {{ title }}
     </a>
     <ul

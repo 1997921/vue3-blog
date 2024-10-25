@@ -1,23 +1,18 @@
 <template>
-  <nav class="navbar bg-dark pe-4 ps-4" data-bs-theme="dark">
-    <a class="navbar-brand">开发笔记</a>
+  <nav class="navbar bg-dark" data-bs-theme="dark">
+    <div class="navbar-brand">开发作品集</div>
     <div v-if="!userData?.isLogin">
-      <button class="btn btn-sm list-line-item me-4" style="color: #fff">
-        登录
+      <button class="btn list-line-item me-2" style="color: #fff">
+        您好，请先登录
       </button>
-      <button class="btn btn-sm list-line-item">注册</button>
+      <a class="btn btn-sm" style="color: gray; text-decoration: underline">
+        没有账号，去注册
+      </a>
     </div>
     <div v-else class="navbar-nav nav-item" style="color: #fff">
       <Dropdown :title="`您好 ${userData.name}`">
-        <dropDownItem
-          ><a href="#" class="dropdown-item">新建文章</a></dropDownItem
-        >
-        <dropDownItem disabled
-          ><a href="#" class="dropdown-item">编辑资料</a></dropDownItem
-        >
-        <dropDownItem
-          ><a href="#" class="dropdown-item">退出登录</a></dropDownItem
-        >
+        <dropDownItem><a class="dropdown-item">编辑个人资料</a></dropDownItem>
+        <dropDownItem><a class="dropdown-item">退出登录</a></dropDownItem>
       </Dropdown>
     </div>
   </nav>

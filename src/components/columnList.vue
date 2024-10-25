@@ -1,17 +1,18 @@
 <template>
   <div class="row">
     <div v-for="column in list" :key="column.id" class="col-4 mb-4">
-      <div class="card shadow-sm h-100">
+      <div class="card shadow-sm">
         <div class="card-body text-center">
           <div>{{ showMsg }}</div>
           <img
             :src="column.avatar"
-            class="card-img-top rounded-circle border border-light w-25 my-3"
+            class="card-img-top border border-light my-3"
+            style="width: 20rem; height: 11rem"
             alt="..."
           />
           <h5 class="card-title">{{ column.title }}</h5>
           <p class="card-text text-left">{{ column.description }}</p>
-          <a href="#" class="btn btn-outline-primary">Go somewhere</a>
+          <a class="btn btn-outline-primary">点击查看</a>
         </div>
       </div>
     </div>
