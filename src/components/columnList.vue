@@ -10,7 +10,30 @@
             style="width: 20rem; height: 11rem"
             alt="..."
           />
-          <h5 class="card-title">{{ column.title }}</h5>
+          <h4 class="card-title">
+            {{ column.title }}
+            <span
+              class="badge border text-primary text-center"
+              style="font-size: 0.8rem; vertical-align: middle"
+              >{{
+                column.type === 0
+                  ? 'pc端'
+                  : column.type === 1
+                    ? 'APP'
+                    : column.type === 2
+                      ? '微信小程序'
+                      : ''
+              }}</span
+            >
+          </h4>
+          <div class="btn-group tips-btn" role="group">
+            <span
+              class="badge border border-primary-subtle"
+              v-for="(item, id) in column.projectTips"
+              :key="id"
+              >{{ item }}</span
+            >
+          </div>
           <p class="card-text text-left">{{ column.description }}</p>
           <a class="btn btn-outline-primary">点击查看</a>
         </div>
@@ -21,13 +44,15 @@
 
 <script setup lang="ts">
 import { defineProps, type PropType, computed } from 'vue'
-import 'bootstrap/dist/css/bootstrap.min.css'
 export interface columnProps {
   id: number
   title: string
+  type: number
+  projectTips: string[]
   avatar: string
   description: string
 }
+
 const props = defineProps({
   //   text: String,
   list: Array as PropType<columnProps[]>,
@@ -44,4 +69,10 @@ const showMsg = computed(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.tips-btn .badge {
+  font-size: 0.68rem;
+  margin: 0 0.1rem;
+  color: #198754;
+}
+</style>

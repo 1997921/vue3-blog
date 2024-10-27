@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown" ref="dropDownRef">
-    <a class="btn btn-outline-light me-4 dropdown-toggle" @click="Opendown()">
+    <a class="btn btn-outline-light dropdown-toggle" @click="Opendown()">
       {{ title }}
     </a>
     <ul
@@ -15,7 +15,6 @@
 
 <script setup lang="ts">
 import { defineProps, ref, watch } from 'vue'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import ClickOutside from '../hooks/userClickOutside'
 defineProps({
   title: String,

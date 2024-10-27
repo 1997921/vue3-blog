@@ -6,7 +6,6 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue'
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 defineProps({
   disabled: Boolean,

@@ -12,7 +12,9 @@
     <div v-else class="navbar-nav nav-item" style="color: #fff">
       <Dropdown :title="`您好 ${userData.name}`">
         <dropDownItem><a class="dropdown-item">编辑个人资料</a></dropDownItem>
-        <dropDownItem><a class="dropdown-item">退出登录</a></dropDownItem>
+        <dropDownItem
+          ><a class="dropdown-item" href="/">退出登录</a></dropDownItem
+        >
       </Dropdown>
     </div>
   </nav>
@@ -20,7 +22,6 @@
 
 <script setup lang="ts">
 import { defineProps, type PropType } from 'vue'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import Dropdown from './dropDown.vue'
 import dropDownItem from './dropDownItem.vue'
 export interface GlobalUserProps {
