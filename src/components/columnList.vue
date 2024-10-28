@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+    <addColumnlist></addColumnlist>
     <div v-for="column in list" :key="column.id" class="col-4 mb-4">
       <div class="card shadow-sm">
         <div class="card-body text-center">
@@ -44,6 +45,7 @@
 
 <script setup lang="ts">
 import { defineProps, type PropType, computed } from 'vue'
+import addColumnlist from './addColumnlist.vue'
 export interface columnProps {
   id: number
   title: string
@@ -74,5 +76,9 @@ const showMsg = computed(() => {
   font-size: 0.68rem;
   margin: 0 0.1rem;
   color: #198754;
+}
+.modal-backdrop {
+  filter: alpha(opacity=0) !important;
+  opacity: 0 !important;
 }
 </style>
