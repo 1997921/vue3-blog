@@ -24,8 +24,8 @@ const validataForm = (m: ruleProp) => {
 </script>
 
 <template>
-  <div class="mb-3" v-for="item in rules" :key="item.val">
-    <label for="exampleInputEmail1" class="form-label">{{ item.name }}</label>
+  <div class="mb-3 w-100" v-for="item in rules" :key="item.val">
+    <!-- <label for="exampleInputEmail1" class="form-label">{{ item.name }}</label> -->
     <input
       :type="item.type"
       v-bind:class="{ 'border-danger': item.error }"

@@ -77,8 +77,4 @@ const showMsg = computed(() => {
   margin: 0 0.1rem;
   color: #198754;
 }
-.modal-backdrop {
-  filter: alpha(opacity=0) !important;
-  opacity: 0 !important;
-}
 </style>

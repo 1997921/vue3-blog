@@ -2,6 +2,7 @@
 import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import validateIinput from '../components/validateIinput.vue'
+import GlobalHeader from '../components/GlobalHeader.vue'
 
 const router = useRouter()
 const rulesProp = reactive([
@@ -64,65 +65,172 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="loginbg h-100">
-    <div
+  <div>
+    <GlobalHeader></GlobalHeader>
+    <div class="containner">
+      <!--提示框-->
+      <!-- <div
       class="alert alert-danger alert-dismissible fade show text-center"
       v-if="OpenalertBox"
     >
       账号或者密码错误，请重新输入
       <button type="button" class="btn-close" @click="closealertBox"></button>
-    </div>
-    <div class="loginBox">
-      <img class="logo" src="../assets/bgbox1.png" />
-      <div class="loginBoxInner">
-        <form>
-          <validateIinput :rules="rulesProp"></validateIinput>
-          <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" v-model="checked" />
-            <label class="form-check-label" for="exampleCheck1">记住密码</label>
+    </div> -->
+      <img class="containner-bg" src="../assets/loginbg.jpg" alt="" />
+      <div class="loginBox">
+        <div class="left">
+          <div class="leftCenter">
+            <h2 class="mb-4">登录</h2>
+            <form class="form">
+              <validateIinput :rules="rulesProp"></validateIinput>
+              <div class="mb-3 form-check" style="width: 100%">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  v-model="checked"
+                />
+                <label
+                  class="form-check-label login-tips-text"
+                  for="exampleCheck1"
+                  >记住密码</label
+                >
+              </div>
+              <button
+                type="submit"
+                class="btn mb-4"
+                @click.stop="UserLoginFun()"
+              >
+                登录
+              </button>
+              <div
+                style="
+                  width: 100%;
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: flex-end;
+                "
+              >
+                <a
+                  class="login-tips-text unkownPassword"
+                  style="color: #252525; display: block"
+                  >忘记密码？</a
+                >
+              </div>
+            </form>
           </div>
-          <button
-            type="submit"
-            class="btn btn-primary btn-lg w-100"
-            @click="UserLoginFun()"
-          >
-            登录
-          </button>
-          <a href="#" class="form-text">没有账号，去注册</a>
-        </form>
+        </div>
+        <div class="right">
+          <div data-v-23e59a05="" class="rightCenter">
+            <h1 class="mb-4">没有账号？</h1>
+            <div class="mb-4">
+              <a href="" style="text-decoration: none; color: #fff"
+                >立即注册吧！</a
+              >
+            </div>
+            <button type="submit" class="btn" @click.stop="UserLoginFun()">
+              注册
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
-.logo {
+.containner {
   position: relative;
-  width: 30rem;
-  margin: 2rem auto;
-  display: block;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.loginbg {
+.containner-bg {
   position: absolute;
   width: 100%;
-  background-image: linear-gradient(to top, #9795f0 0%, #fbc8d4 100%);
+  height: 100%;
+  object-fit: cover;
+  vertical-align: top;
+  /* background-image: linear-gradient(to top, #9795f0 0%, #fbc8d4 100%); */
 }
 .loginBox {
   position: relative;
+  opacity: 0.9;
+  border-radius: 10px;
   display: flex;
   flex-direction: row;
-  max-width: 64rem;
-  /* padding: 8rem; */
-  height: auto;
-  margin: 0 auto;
-  margin-top: 8%;
-  border-radius: 2rem;
-  background: rgba(253, 253, 253, 0.8);
+  box-shadow:
+    0 15px 30px var(--miniMask),
+    0 10px 10px var(--miniMask);
+  width: 750px;
+  max-width: 100%;
+  min-height: 450px;
+  margin: 10px;
 }
-.loginBoxInner {
-  width: 46%;
-  position: relative;
-  height: auto;
-  margin: 0 auto;
-  padding: 6rem;
+.left {
+  width: 50%;
+  background: #fff;
+  .leftCenter {
+    flex-direction: column;
+    background: var(--white);
+    padding: 0 20px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .btn {
+    border-radius: 2rem;
+    border: none;
+    background: #ff4b2b;
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 45px;
+    letter-spacing: 2px;
+    cursor: pointer;
+  }
+  .login-tips-text {
+    font-size: 0.86rem;
+  }
+}
+.right {
+  width: 50%;
+  background: linear-gradient(270deg, #ff4b2b, #ff416c);
+  .rightCenter {
+    color: #fff;
+    flex-direction: column;
+    background: var(--white);
+    padding: 0 20px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .btn {
+    border-radius: 2rem;
+    color: #fff;
+    background: none;
+    border: 1px solid #fff;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 45px;
+    letter-spacing: 2px;
+    cursor: pointer;
+  }
+}
+@media (max-width: 750px) {
+  .loginBox {
+    width: 450px;
+  }
+}
+.unkownPassword:hover {
+  cursor: pointer;
+  text-decoration: none;
 }
 </style>
