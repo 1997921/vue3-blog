@@ -105,13 +105,14 @@ watch(isClickOpen, () => {
         />
       </a>
       <button
-        class="navbar-toggler"
+        class="navbar-toggler blog-navbar-toggler"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        v-if="headNavIshow"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -161,6 +162,12 @@ watch(isClickOpen, () => {
 .user-dropdown-menu{
   display: block;
   right: 0;
+}
+.blog-navbar-toggler{
+  background: #fff;
+}
+.blog-navbar-toggler .navbar-toggler-icon{
+  color: #f0892f;
 }
 
 </style>
