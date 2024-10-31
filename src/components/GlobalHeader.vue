@@ -1,3 +1,99 @@
+<script setup lang="ts">
+import { defineProps, type PropType,ref,watch } from 'vue'
+import Dropdown from './dropDown.vue'
+import ClickOutside from '../hooks/userClickOutside'
+// import dropDownItem from './dropDownItem.vue'
+interface GlobalUserProps {
+  id: number
+  name: string
+  isLogin: boolean
+}
+const headNavList =
+[
+  {
+    name:"🏡 首页",
+    dropdownToggleStatus:false,
+    navHref:"",
+    dropdownTogglelist:[],
+    disable:false
+  },
+  {
+    name:"🧰 项目",
+    dropdownToggleStatus:false,
+    navHref:"",
+    dropdownTogglelist:[
+    {
+      name:"项目展示",
+      disable:false,
+      navHref:"",
+      icon:"string"
+    }],
+    disable:false
+  },
+  {
+    name:"📒 开发笔记",
+    dropdownToggleStatus:false,
+    navHref:"",
+    dropdownTogglelist:[
+    {
+      name:"",
+      disable:false,
+      navHref:"",
+      icon:"string"
+    }],
+    disable:false
+  },
+  {
+    name:"📪 社区论坛",
+    dropdownToggleStatus:false,
+    navHref:"",
+    dropdownTogglelist:[
+    {
+      name:"",
+      disable:false,
+      navHref:"",
+      icon:"string"
+    }],
+    disable:false
+  },
+  {
+    name:"💬 消息",
+    dropdownToggleStatus:false,
+    navHref:"",
+    dropdownTogglelist:[
+    {
+      name:"",
+      disable:false,
+      navHref:"",
+      icon:"string"
+    }],
+    disable:false
+  },
+]
+defineProps({
+  //   text: String,
+  userData: Object as PropType<GlobalUserProps>,
+  headNavIshow:Boolean
+})
+const isopen = ref(false)
+const Opendown = () => {
+  isopen.value = !isopen.value
+}
+// const offdown = () => {
+//   isopen.value = false
+// }
+/*
+ *设置与下拉父组件 ref 里面一样的参数dropDownRef
+ *可以获取相应的HTML元素
+ */
+const userDropDownRef = ref<null | HTMLElement>(null)
+const isClickOpen = ClickOutside(userDropDownRef)
+watch(isClickOpen, () => {
+  if (isClickOpen.value && isopen.value) {
+    isopen.value = false
+  }
+})
+</script>
 <template>
   <nav class="navbar navbar-expand-lg toolbar-content myBetween">
     <div class="container-fluid">
@@ -19,56 +115,17 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" v-if="headNavIshow">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item ms-4">
-            <a class="nav-link active" aria-current="page" href="#">🏡 首页</a>
-          </li>
-          <li class="nav-item ms-4">
-            <a class="nav-link" href="#">🧰 项目</a>
-          </li>
-          <li class="nav-item ms-4">
-            <a class="nav-link" href="#">📒 开发笔记</a>
-          </li>
-          <li class="nav-item ms-4">
-            <a class="nav-link" href="#">📪 社区论坛</a>
-          </li>
-          <li class="nav-item ms-4">
-            <a class="nav-link" href="#">💬 消息</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
+          <Dropdown :nav-list = headNavList></Dropdown>
         </ul>
-        <div class="dropdown">
-          <a
-            class="btn dropdown-toggle dropdown-toggle-text"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            欢迎，wyy
-          </a>
-
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+        <!--用户信息显示-->
+        <div class="dropdown userdropdownType" ref="userDropDownRef">
+          <a class="btn dropdown-toggle" v-if="userData?.isLogin" @click="Opendown">欢迎,{{userData?.name}}</a>
+          <a class="btn" v-else>登录查看更多</a>
+          <ul class="dropdown-menu user-dropdown-menu" v-if="isopen"  >
+            <li><a class="dropdown-item">编辑个人信息</a></li>
+            <li><a class="dropdown-item">退出登录</a></li>
           </ul>
         </div>
       </div>
@@ -76,20 +133,7 @@
   </nav>
 </template>
 
-<script setup lang="ts">
-import { defineProps, type PropType } from 'vue'
-// import Dropdown from './dropDown.vue'
-// import dropDownItem from './dropDownItem.vue'
-export interface GlobalUserProps {
-  id: number
-  name: string
-  isLogin: boolean
-}
-defineProps({
-  //   text: String,
-  userData: Object as PropType<GlobalUserProps>,
-})
-</script>
+
 
 <style scoped>
 .toolbar-content {
@@ -106,30 +150,17 @@ defineProps({
   justify-content: space-between;
 }
 .toolbar-content:hover {
-  background: rgba(0, 0, 0, 0.5);
+  /* background: rgba(0, 0, 0, 0.5); */
 }
-/* .navbar-nav .nav-item:hover ::after {
-  content: '';
+.userdropdownType .btn{
+  color: #fff;
+}
+.userdropdownType .btn:hover{
+  color: #f0892f;
+}
+.user-dropdown-menu{
   display: block;
-  width: 100%; 
-  height: 4px; 
-  background: #eb9a31; 
-} */
-.navbar-nav .nav-item {
-  border: 4px solid transparent;
+  right: 0;
 }
-.navbar-nav .nav-item:hover {
-  border-bottom: 4px solid #eb9a31;
-}
-.navbar-nav .nav-item .nav-link {
-  color: #fff;
-  font-weight: bold;
-}
-.navbar-nav .nav-link.active,
-.navbar-nav .show > .nav-link {
-  color: #eb9a31;
-}
-.dropdown-toggle-text {
-  color: #fff;
-}
+
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div class="row">
-    <addColumnlist></addColumnlist>
     <div v-for="column in list" :key="column.id" class="col-4 mb-4">
       <div class="card shadow-sm">
         <div class="card-body text-center">
@@ -45,7 +44,7 @@
 
 <script setup lang="ts">
 import { defineProps, type PropType, computed } from 'vue'
-import addColumnlist from './addColumnlist.vue'
+// import addColumnlist from './addColumnlist.vue'
 export interface columnProps {
   id: number
   title: string

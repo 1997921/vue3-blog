@@ -1,14 +1,19 @@
 <template>
-  <li :class="{ 'is-disabled': disabled }" class="dropdown-option">
-    <slot></slot>
+  <li v-for="item in downItemData" :key="item.name"  class="dropdown-option">
+    <a class="nav-link">{{ item.name }}</a>
   </li>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
-
+import { defineProps,type PropType } from 'vue'
+interface dropdownToggleTYpe{
+  name:string,
+  disable:boolean,
+  icon:string,
+  navHref:string
+}
 defineProps({
-  disabled: Boolean,
+  downItemData: Array as PropType<dropdownToggleTYpe[]>,
 })
 </script>
 

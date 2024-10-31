@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import GlobalHeader from '../components/GlobalHeader.vue'
 import columnList from '../components/columnList.vue'
-import SecNavBar from '../components/SecNavBar.vue'
 const data = [
   {
     id: 1,
@@ -36,11 +35,11 @@ const userDta = {
 </script>
 
 <template>
-  <header class="main-header bg-dark mb-2">
-    <GlobalHeader :user-data="userDta" class="center-container"></GlobalHeader>
+  <header class="main-header  mb-2">
+    <GlobalHeader :user-data="userDta" :headNavIshow="true" class="bg-dark"></GlobalHeader>
   </header>
-  <div class="center-container">
-    <SecNavBar></SecNavBar>
+  <div class="center-container" data-bs-spy="scroll" data-bs-target="#navbar-container">
+    <!-- <SecNavBar></SecNavBar> -->
     <columnList :list="data" />
   </div>
 </template>
@@ -51,5 +50,6 @@ const userDta = {
 .center-container {
   max-width: 1280px;
   margin: 0 auto;
+  margin-top: 80px;
 }
 </style>

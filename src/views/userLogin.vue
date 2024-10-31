@@ -37,7 +37,7 @@ const UserLoginFun = () => {
     }, 3000)
   }
 }
-const checked = ref(false)
+const checked = ref(true)
 //监听函数
 // watch(checked, () => {
 //   console.log(checked)
@@ -66,16 +66,13 @@ onMounted(() => {
 
 <template>
   <div>
-    <GlobalHeader></GlobalHeader>
+    <GlobalHeader :headNavIshow="false"></GlobalHeader>
     <div class="containner">
       <!--提示框-->
-      <!-- <div
-      class="alert alert-danger alert-dismissible fade show text-center"
-      v-if="OpenalertBox"
-    >
-      账号或者密码错误，请重新输入
-      <button type="button" class="btn-close" @click="closealertBox"></button>
-    </div> -->
+      <div class="alert alert-danger alert-type" role="alert" v-if="OpenalertBox">
+        账号或者密码错误，请重新输入!
+      </div>
+      
       <img class="containner-bg" src="../assets/loginbg.jpg" alt="" />
       <div class="loginBox">
         <div class="left">
@@ -88,6 +85,7 @@ onMounted(() => {
                   type="checkbox"
                   class="form-check-input"
                   v-model="checked"
+                  style="border: 1px solid #3156eb;"
                 />
                 <label
                   class="form-check-label login-tips-text"
@@ -169,16 +167,8 @@ onMounted(() => {
 .left {
   width: 50%;
   background: #fff;
-  .leftCenter {
-    flex-direction: column;
-    background: var(--white);
-    padding: 0 20px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .form {
+}
+.form {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -195,14 +185,23 @@ onMounted(() => {
     letter-spacing: 2px;
     cursor: pointer;
   }
+.leftCenter {
+    flex-direction: column;
+    background: var(--white);
+    padding: 0 20px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .login-tips-text {
     font-size: 0.86rem;
   }
-}
 .right {
   width: 50%;
   background: linear-gradient(270deg, #ff4b2b, #ff416c);
-  .rightCenter {
+}
+.rightCenter {
     color: #fff;
     flex-direction: column;
     background: var(--white);
@@ -212,7 +211,7 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
   }
-  .btn {
+  .right  .btn {
     border-radius: 2rem;
     color: #fff;
     background: none;
@@ -223,7 +222,12 @@ onMounted(() => {
     letter-spacing: 2px;
     cursor: pointer;
   }
-}
+  .alert-type{
+    top: 2%;
+    z-index: 999;
+    position: absolute;
+
+  }
 @media (max-width: 750px) {
   .loginBox {
     width: 450px;
@@ -233,4 +237,5 @@ onMounted(() => {
   cursor: pointer;
   text-decoration: none;
 }
+
 </style>
