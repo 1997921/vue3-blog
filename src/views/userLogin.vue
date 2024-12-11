@@ -2,7 +2,7 @@
 import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import validateIinput from '../components/validateIinput.vue'
-import GlobalHeader from '../components/GlobalHeader.vue'
+import GlobalHeader from '../components/GlobalHeader/GlobalHeader.vue'
 
 const router = useRouter()
 const rulesProp = reactive([
@@ -72,7 +72,7 @@ onMounted(() => {
       <div class="alert alert-danger alert-type" role="alert" v-if="OpenalertBox">
         账号或者密码错误，请重新输入!
       </div>
-      
+
       <img class="containner-bg" src="../assets/loginbg.jpg" alt="" />
       <div class="loginBox">
         <div class="left">

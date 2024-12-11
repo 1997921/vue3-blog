@@ -12,13 +12,13 @@
     <dropDownItem :downItemData="column.dropdownTogglelist"></dropDownItem>
     </ul>
   </li>
-   
+
 </template>
 
 <script setup lang="ts">
 import { defineProps, ref, watch,  type PropType } from 'vue'
-import ClickOutside from '../hooks/userClickOutside'
-import dropDownItem from '../components/dropDownItem.vue'
+import ClickOutside from '../../hooks/useUserClickOutside'
+import dropDownItem from '../dropDown/dropDownItem.vue'
 interface dropdownToggleTYpe{
   name:string,
   disable:boolean,

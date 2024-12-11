@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, type PropType,ref,watch } from 'vue'
-import Dropdown from './dropDown.vue'
-import ClickOutside from '../hooks/userClickOutside'
+import Dropdown from '../dropDown/dropDown.vue'
+import ClickOutside from '../../hooks/useUserClickOutside'
 // import dropDownItem from './dropDownItem.vue'
 interface GlobalUserProps {
   id: number
@@ -99,7 +99,7 @@ watch(isClickOpen, () => {
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img
-          src="../assets/logo1.png"
+          src="../../assets/logo1.png"
           class="el-image__inner"
           style="display: block"
         />

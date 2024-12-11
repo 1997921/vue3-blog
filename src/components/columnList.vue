@@ -35,7 +35,7 @@
             >
           </div>
           <p class="card-text text-left">{{ column.description }}</p>
-          <a class="btn btn-outline-primary">点击查看</a>
+          <a class="btn btn-outline-primary" @click="router.push('/about')">点击查看</a>
         </div>
       </div>
     </div>
@@ -43,6 +43,7 @@
 </template>
 
 <script setup lang="ts">
+import router from '@/router'
 import { defineProps, type PropType, computed } from 'vue'
 // import addColumnlist from './addColumnlist.vue'
 export interface columnProps {

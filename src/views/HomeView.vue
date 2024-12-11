@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import GlobalHeader from '../components/GlobalHeader.vue'
+import GlobalHeader from '../components/GlobalHeader/GlobalHeader.vue'
 import columnList from '../components/columnList.vue'
 const data = [
   {
