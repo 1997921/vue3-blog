@@ -4,12 +4,22 @@ const routes = [
   {
     path: '/',
     name: '/',
-    component: () => import('../views/userLogin.vue'),
+    component: () => import('../views/login.vue'),
   },
   {
     path: '/home',
     name: '/home',
-    component: () => import('../views/HomeView.vue'),
+    component: () => import('../views/Home.vue'),
+  },
+  {
+    path: '/floorView',
+    name: '/floorView',
+    component: () => import('../views/floorView.vue'),
+  },
+  {
+    path: '/tableView',
+    name: '/tableView',
+    component: () => import('../views/tableView.vue'),
   },
   {
     path: '/about',

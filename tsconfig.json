@@ -9,4 +9,10 @@
     }
   ],
   // "include": ["src/**/*.ts", "src/**/*.d.ts"]
+  "compilerOptions": {
+    "types": ["three"],
+    "paths": {
+      "three/examples/jsm/*": ["./node_modules/@types/three/examples/jsm/*"]
+    }
+  }
 }
