@@ -7,6 +7,16 @@ const routes = [
     component: () => import('../views/login.vue'),
   },
   {
+    path: '/loading',
+    name: '/loading',
+    component: () => import('../views/components/loading/LoadingPage.vue'),
+  },
+  {
+    path: '/3d',
+    name: '/3d',
+    component: () => import('../views/CabinetView.vue'),
+  },
+  {
     path: '/home',
     name: '/home',
     component: () => import('../views/Home.vue'),

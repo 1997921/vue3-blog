@@ -193,14 +193,20 @@ const unitData = ref([
 
 // 热词数据
 const hotWords = ref([
-  { id: 1, value: 980, label: '电力安全隐患', highlight: "highlight", size: 80 },
-  { id: 2, value: 350, label: '垃圾清理', highlight: "highlight", size: 90 },
-  { id: 3, value: 200, label: '群众关系', highlight: "light1", size: 100 },
-  { id: 4, value: 120, label: '食品安全', highlight: "light1", size: 85 },
-  { id: 5, value: 180, label: '电信诈骗', highlight: "light1", size: 95 },
-  { id: 6, value: 10, label: '治安维护', highlight: "light1", size: 75 },
-  { id: 7, value: 160, label: '火灾隐患', highlight: "light1", size: 92 }
+  { id: 1, value: 982, label: '群众关系', highlight: "highlight", size: 95 },
+  { id: 2, value: 962, label: '治安维护', highlight: "light1", size: 90 },
+  { id: 3, value: 923, label: '电信诈骗', highlight: "light2", size: 85 },
+  { id: 4, value: 882, label: '食品安全', highlight: "light1", size: 80 },
+  { id: 5, value: 862, label: '垃圾清理', highlight: "light2", size: 75 },
+  { id: 6, value: 842, label: '火灾隐患', highlight: "light3", size: 70 },
+  { id: 7, value: 822, label: '电力安全', highlight: "light1", size: 65 }
 ])
+
+// Add this interface before calculateBubblePositions
+interface Position {
+  x: number;
+  y: number;
+}
 
 onMounted(() => {
   initCharts()
@@ -266,7 +272,7 @@ const positionBubbles = () => {
     const positions = calculateBubblePositions(bubbles, containerWidth, containerHeight)
 
     bubbles.forEach((bubble, index) => {
-      const element = document.querySelector(`.word-item:nth-child(${index + 1})`)
+      const element = document.querySelector(`.word-item:nth-child(${index + 1})`) as HTMLElement
       if (element) {
         const size = Math.max(60, Math.min(100, bubble.value / 10))
         element.style.width = `${size}px`
@@ -288,7 +294,7 @@ const positionBubbles = () => {
 }
 
 const calculateBubblePositions = (bubbles, width, height) => {
-  const positions = []
+  const positions: Position[] = []
   const minSpacing = 5   // 气泡之间的最小间距
   const borderPadding = 10  // 与边框的距离
 
@@ -385,15 +391,17 @@ window.addEventListener('resize', () => {
 
 .main-content {
   display: grid;
-  grid-template-columns: 400px 1fr 400px;
-  gap: 20px;
-  padding: 20px;
+  grid-template-columns: 450px 1fr 400px;
+  gap: 10px;
+  padding: 10px;
   height: calc(100vh - 60px);
 }
 
 .left-panel,
 .right-panel {
-  background: rgba(6, 30, 93, 0.5);
+  background: rgba(0, 21, 41, 0.8);
+  border: 1px solid rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
   border-radius: 4px;
   padding: 15px;
 }
@@ -414,11 +422,18 @@ window.addEventListener('resize', () => {
 }
 
 .data-card {
-  background: rgba(6, 30, 93, 0.7);
+  background: rgba(0, 21, 41, 0.8);
+  border: 1px solid rgba(0, 255, 255, 0.1);
   border-radius: 4px;
   padding: 15px;
   display: flex;
   align-items: center;
+  transition: all 0.3s;
+}
+
+.data-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
 }
 
 .card-icon {
@@ -439,7 +454,8 @@ window.addEventListener('resize', () => {
 .card-value {
   font-size: 24px;
   font-weight: bold;
-  color: #fff;
+  color: #00ffff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
 .card-label {
@@ -451,6 +467,9 @@ window.addEventListener('resize', () => {
 .center-map {
   position: relative;
   height: 100%;
+  background: rgba(0, 21, 41, 0.5);
+  border: 1px solid rgba(0, 255, 255, 0.1);
+  border-radius: 4px;
 }
 
 #map {
@@ -464,8 +483,9 @@ window.addEventListener('resize', () => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(6, 30, 93, 0.9);
-  border: 1px solid #7cd7ff;
+  background: rgba(0, 21, 41, 0.9);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
   border-radius: 4px;
   padding: 15px;
   min-width: 300px;
@@ -479,6 +499,9 @@ window.addEventListener('resize', () => {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  background: rgba(0, 21, 41, 0.5);
+  border-radius: 4px;
+  padding: 10px;
 }
 
 .word-item {
@@ -497,16 +520,15 @@ window.addEventListener('resize', () => {
   );
   box-shadow: inset 0 0 20px rgba(24, 144, 255, 0.3),
              0 0 10px rgba(24, 144, 255, 0.3);
+  background: rgba(0, 150, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: #00ffff;
 }
 
 .word-item.highlight {
-  background-image: url("../assets/paopao/p1.png");
-  background-size: 100% 100%;
-  /* border: 2px solid #ffd700; */
-  box-shadow: inset 0 0 30px rgba(24, 144, 255, 0.5),
-             0 0 15px rgba(24, 144, 255, 0.5);
-  transform: scale(1.1);
-  z-index: 1;
+  background: rgba(0, 255, 255, 0.2);
+  border: 1px solid rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
 }
 .word-item.light1 {
   background-image: url("../assets/paopao/p2.png");
@@ -553,4 +575,26 @@ window.addEventListener('resize', () => {
 }
 
 /* 其他样式... */
+
+/* 表格样式 */
+.unit-table {
+  background: rgba(0, 21, 41, 0.5);
+  border-radius: 4px;
+  padding: 10px;
+}
+
+:deep(.el-table) {
+  background-color: transparent;
+  color: #fff;
+}
+
+:deep(.el-table th),
+:deep(.el-table tr) {
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+:deep(.el-table--enable-row-hover .el-table__body tr:hover > td) {
+  background-color: rgba(0, 255, 255, 0.1);
+}
 </style>

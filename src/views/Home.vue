@@ -31,6 +31,10 @@
 
       <div class="nav-right">
         <div class="user-info">
+
+          <div class="current-time">
+            <span v-for="(char, index) in currentTime" :key="index">{{ char }}</span>
+          </div>
           <div class="avatar-container">
             <img :src="userInfo?.avatar || '/default-avatar.png'" class="avatar" />
           </div>
@@ -41,6 +45,7 @@
 
     <!-- 主要内容区 -->
     <main class="main-content">
+
       <!-- 文章列表 -->
       <div class="article-list">
         <article v-for="article in articles" :key="article.id" class="article-card">
@@ -60,6 +65,7 @@
       </div>
 
       <!-- 侧边栏 -->
+
       <aside class="sidebar">
         <!-- 个人简介卡片 -->
         <div class="profile-card">
@@ -102,9 +108,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { getUserInfo } from '@/utils/login'
-
 defineOptions({
   name: 'HomeView'
 })
@@ -147,6 +152,29 @@ const formatDate = (date: string) => {
 }
 
 const unreadCount = ref(5) // 未读消息数量
+
+const currentTime = ref('')
+const timer = ref(null)
+
+const updateTime = () => {
+  const now = new Date()
+  currentTime.value = now.toLocaleTimeString('zh-CN', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  })
+}
+
+onMounted(() => {
+  updateTime()
+  timer.value = setInterval(updateTime, 1000)
+})
+
+onBeforeUnmount(() => {
+  if (timer.value) {
+    clearInterval(timer.value)
+  }
+})
 </script>
 
 <style scoped>
@@ -223,14 +251,12 @@ const unreadCount = ref(5) // 未读消息数量
   border-radius: 20px;
   overflow: hidden;
   margin-bottom: 25px;
-  transition: all 0.3s ease;
   box-shadow: 0 8px 20px rgba(255, 153, 153, 0.15);
   border: 3px solid #ffb3b3;
 }
 
 .article-card:hover {
-  transform: translateY(-5px) rotate(1deg);
-  box-shadow: 0 12px 25px rgba(255, 153, 153, 0.25);
+  /* 删除或注释掉这个选择器的内容 */
 }
 
 .article-cover img {
@@ -408,14 +434,17 @@ const unreadCount = ref(5) // 未读消息数量
   display: flex;
   gap: 20px;
   align-items: center;
+  height: 60px;
 }
 
 .nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
   padding: 8px 16px;
+  height: 60px;
   border-radius: 15px;
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   position: relative;
@@ -450,7 +479,7 @@ const unreadCount = ref(5) // 未读消息数量
 
 .nav-icon {
   font-size: 24px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   transition: transform 0.3s ease;
 }
 
@@ -459,6 +488,7 @@ const unreadCount = ref(5) // 未读消息数量
   color: #ff6666;
   font-weight: bold;
   transition: color 0.3s ease;
+  line-height: 1;
 }
 
 .nav-item:hover .nav-icon {
@@ -564,6 +594,39 @@ const unreadCount = ref(5) // 未读消息数量
 
   .nav-text {
     font-size: 12px;
+  }
+}
+
+.current-time {
+  color: #333;
+  font-size: 16px;
+  position: relative;
+  display: inline-block;
+  perspective: 400px;
+}
+
+.current-time span {
+  display: inline-block;
+  min-width: 0.6em;
+  text-align: center;
+  transition: transform 0.3s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.current-time span.flip {
+  animation: timeFlip 0.6s ease-in-out;
+}
+
+@keyframes timeFlip {
+  0% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
   }
 }
 </style>
